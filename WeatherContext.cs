@@ -6,5 +6,9 @@ using System.Threading.Tasks;
 
 namespace ContainerApi
 {
-
+    public class WeatherContext : DbContext{
+        public DbSet<WeatherEvent> WeatherEvents {get;set;}
+        public DbSet<Reaction> Reactions {get;set;}
+        public DbSet<Comment> Comments {get;set;}
+    }
 }

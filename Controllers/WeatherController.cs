@@ -15,11 +15,30 @@ namespace ContainerApi.Controllers
         {
             _context = context;
         }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
-            return _context.WeatherEvents.Include(i => i.Reactions).ThenInclude(t => t.Comments);
-        }       
+            return _context.WeatherEvents
+                .Include(i => i.Reactions)
+                .ThenInclude(t => t.Comments);
+        }
+
+        [HttpGet("{date}")]
+        public IEnumerable<WeatherEvent> Get(DateTime date)
+        {
+            return _context.WeatherEvents.Where(w => w.Date.Date == date.Date)
+                .Include(i => i.Reactions)
+                .ThenInclude(t => t.Comments);
+        }
+
+        [HttpGet("{weatherType:int}")]
+        public IEnumerable<WeatherEvent> Get(int weatherType)
+        {
+            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})")
+                .Include(i => i.Reactions)
+                .ThenInclude(t => t.Comments);
+        }
     }
 }

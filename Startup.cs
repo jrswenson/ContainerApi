@@ -43,7 +43,16 @@ namespace ContainerApi
             app.UseMvc();
 
             var dataText = File.ReadAllText(@"weatherdataseed.json");
-            Seeder.Seedit(dataText, app.ApplicationServices);
+
+            try
+            {
+                Seeder.Seedit(dataText, app.ApplicationServices);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }            
         }
     }
 }

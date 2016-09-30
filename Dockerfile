@@ -1,3 +1,4 @@
+#FROM corertm
 FROM microsoft/dotnet:latest
 
 COPY . /app
@@ -8,6 +9,6 @@ RUN ["dotnet", "restore"]
 
 RUN ["dotnet", "build"]
 
-EXPOSE 5000/tcp
+EXPOSE 5002/tcp
 
 CMD ["dotnet", "run", "--server.urls", "http://*:5000"]

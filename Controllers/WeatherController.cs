@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,16 @@ namespace ContainerApi.Controllers
     [Route("api/[controller]")]
     public class WeatherController : Controller
     {
+        WeatherContext _context;
+        public WeatherController(WeatherContext context)
+        {
+            _context = context;
+        }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<WeatherEvent> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _context.WeatherEvents.Include(i => i.Reactions).ThenInclude(t => t.Comments);
         }       
     }
 }

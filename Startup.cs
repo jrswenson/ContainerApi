@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace ContainerApi
 {
@@ -40,6 +41,9 @@ namespace ContainerApi
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            var dataText = File.ReadAllText(@"weatherdataseed.json");
+            Seeder.Seedit(dataText, app.ApplicationServices);
         }
     }
 }

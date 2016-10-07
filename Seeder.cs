@@ -15,6 +15,7 @@ namespace ContainerApi
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<WeatherContext>();
+                context.Database.EnsureCreated();
                 if (context.WeatherEvents.Any()) return;
 
                 context.AddRange(events);

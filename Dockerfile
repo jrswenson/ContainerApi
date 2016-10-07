@@ -11,4 +11,4 @@ RUN ["dotnet", "build"]
 
 EXPOSE 5002/tcp
 
-CMD ["dotnet", "run", "--server.urls", "http://*:5000"]
+CMD ["dotnet", "run", "--server.urls", "http://*:5002"]
